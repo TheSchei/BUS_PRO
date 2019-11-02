@@ -39,10 +39,10 @@ namespace BusPro
         {
             using (SHA256 mySHA = SHA256.Create())
             {
-                Byte[] temp;
+                byte[] temp;
                 for(int i=0; i<256; i++)
                 {
-                    temp = Support.SubArray<Byte>(PrivateKey1, 32 * i, 32);//substract 256bit number(32*8)
+                    temp = Support.SubArray(PrivateKey1, 32 * i, 32);//substract 256bit number(32*8)
                     temp = mySHA.ComputeHash(temp);//hashing
                     for (int j = 0; j < 32; j++)//putting into public key variable
                     {
@@ -51,7 +51,7 @@ namespace BusPro
                 }
                 for (int i = 0; i < 256; i++)
                 {
-                    temp = Support.SubArray<Byte>(PrivateKey2, 32 * i, 32);
+                    temp = Support.SubArray(PrivateKey2, 32 * i, 32);
                     temp = mySHA.ComputeHash(temp);
                     for (int j = 0; j < 32; j++)
                     {
@@ -61,7 +61,7 @@ namespace BusPro
             }
             return true;
         }
-        public Boolean CreateHash(String filePath)// hashing file
+        public bool CreateHash(string filePath)// hashing file
         {
             using (SHA256 mySHA = SHA256.Create())
             {
@@ -90,13 +90,13 @@ namespace BusPro
 
         private void TransferBytes(int x, int y)
         {
-            Byte[] temp;
-            temp = Support.SubArray<Byte>(PrivateKey2, (32 * x + y) * 32, 32);
+            byte[] temp;
+            temp = Support.SubArray(PrivateKey2, (32 * x + y) * 32, 32);
             for (int j = 0; j < 32; j++)
                 PublicKey1[32 * x + j] = temp[j];
         }
 
-        public Byte[] CreateSignature()
+        public byte[] CreateSignature()
         {
             for(int i = 0; i<256; i++)
             {
