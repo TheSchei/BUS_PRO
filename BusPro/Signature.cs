@@ -45,18 +45,14 @@ namespace BusPro
                     temp = Support.SubArray(PrivateKey1, 32 * i, 32);//substract 256bit number(32*8)
                     temp = mySHA.ComputeHash(temp);//hashing
                     for (int j = 0; j < 32; j++)//putting into public key variable
-                    {
                         PublicKey1[32 * i + j] = temp[j];
-                    }
                 }
                 for (int i = 0; i < 256; i++)
                 {
                     temp = Support.SubArray(PrivateKey2, 32 * i, 32);
                     temp = mySHA.ComputeHash(temp);
                     for (int j = 0; j < 32; j++)
-                    {
                         PublicKey2[32 * i + j] = temp[j];
-                    }
                 }
             }
             return true;
@@ -99,9 +95,7 @@ namespace BusPro
         public byte[] CreateSignature()
         {
             for(int i = 0; i<256; i++)
-            {
                 CheckByte(i);
-            }
             PrivateKey2 = new Byte[8192];//deleting privatekey
             return PrivateKey1;//returning overwritten by signature privatekey
         }
