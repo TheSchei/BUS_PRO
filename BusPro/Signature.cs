@@ -10,10 +10,10 @@ namespace BusPro
 {
     class Signature
     {
-        private Byte[] PrivateKey1 = new Byte[8192]; // Also final signature
-        private Byte[] PrivateKey2 = new Byte[8192];
-        private Byte[] PublicKey1 = new Byte[8192];
-        private Byte[] PublicKey2 = new Byte[8192];
+        private readonly Byte[] PrivateKey1 = new Byte[8192]; // Also final signature
+        private readonly Byte[] PrivateKey2 = new Byte[8192];
+        private readonly Byte[] PublicKey1 = new Byte[8192];
+        private readonly Byte[] PublicKey2 = new Byte[8192];
         private Byte[] Hash;//32 bytes
 
         public Signature()//generating private keys
@@ -23,11 +23,11 @@ namespace BusPro
             randomizer.NextBytes(PrivateKey2);
         }
 
-        public Boolean createPublicKey()//hashing private keys
+        public Boolean CreatePublicKey()//hashing private keys
         {
             return true;
         }
-        public Boolean createHash(String filePath)// hashing file
+        public Boolean CreateHash(String filePath)// hashing file
         {
             using (SHA256 mySHA = SHA256.Create())
             {
@@ -41,7 +41,7 @@ namespace BusPro
             }
             return true;
         }
-        private void checkByte(int x) // creating signature based on hash (need to be used for each hash byte)
+        private void CheckByte(int x) // creating signature based on hash (need to be used for each hash byte)
         {
             if ((Hash[x] & 0b_1000_0000) == 0) PrivateKey1[x + 0] = PrivateKey2[x + 0];
             if ((Hash[x] & 0b_0100_0000) == 0) PrivateKey1[x + 1] = PrivateKey2[x + 1];

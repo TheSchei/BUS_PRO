@@ -20,11 +20,12 @@ namespace BusPro
         private void BrowseFile_Click(object sender, EventArgs e)
         {
             //readonly = true
-            OpenFileDialog choofdlog = new OpenFileDialog();
-            choofdlog.Filter = "All Files (*.*)|*.*";
-            choofdlog.FilterIndex = 1;
-
-            choofdlog.Multiselect = false;
+            OpenFileDialog choofdlog = new OpenFileDialog
+            {
+                Filter = "All Files (*.*)|*.*",
+                FilterIndex = 1,
+                Multiselect = false
+            };
             choofdlog.ShowDialog();
             if (choofdlog.FileName.Length != 0)
             {
