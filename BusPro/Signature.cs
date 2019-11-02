@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace BusPro
 {
@@ -25,8 +27,18 @@ namespace BusPro
         {
             return true;
         }
-        public Boolean createHash()// hashing file
+        public Boolean createHash(String filePath)// hashing file
         {
+            using (SHA256 mySHA = SHA256.Create())
+            {
+                try
+                {
+                    FileStream file = new FileStream(filePath, FileMode.Open);
+                    Hash = mySHA.ComputeHash(file);
+                    file.Close();
+                }
+                catch { return false; }
+            }
             return true;
         }
         private void checkByte(int x) // creating signature based on hash (need to be used for each hash byte)
