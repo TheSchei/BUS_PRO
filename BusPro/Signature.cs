@@ -19,11 +19,11 @@ namespace BusPro
     };
     class Signature
     {
-        private readonly Byte[] PrivateKey1 = new Byte[8192]; // Also final signature//maybe
-        private Byte[] PrivateKey2 = new Byte[8192];
-        private readonly Byte[] PublicKey1 = new Byte[8192];
-        private readonly Byte[] PublicKey2 = new Byte[8192];
-        private Byte[] Hash;//32 bytes
+        private readonly byte[] PrivateKey1 = new byte[8192]; // Also final signature
+        private byte[] PrivateKey2 = new byte[8192];
+        private readonly byte[] PublicKey1 = new byte[8192];
+        private readonly byte[] PublicKey2 = new byte[8192];
+        private byte[] Hash;//32 bytes
 
         public byte[] Public1 => PublicKey1;
 
@@ -35,7 +35,7 @@ namespace BusPro
             randomizer.NextBytes(PrivateKey1);
             randomizer.NextBytes(PrivateKey2);
         }
-        public Boolean CreatePublicKey()//hashing private keys//easy to parallel
+        public bool CreatePublicKey()//hashing private keys//easy to parallel
         {
             using (SHA256 mySHA = SHA256.Create())
             {
@@ -102,8 +102,8 @@ namespace BusPro
             {
                 CheckByte(i);
             }
-            PrivateKey2 = new Byte[8192];
-            return PrivateKey1;
+            PrivateKey2 = new Byte[8192];//deleting privatekey
+            return PrivateKey1;//returning overwritten by signature privatekey
         }
     }
 }
