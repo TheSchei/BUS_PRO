@@ -8,9 +8,18 @@ using System.IO;
 
 namespace BusPro
 {
+    static class Support//Subclass to hold static method
+    {
+        public static T[] SubArray<T>(this T[] data, int index, int length)//Substracting array
+        {
+            T[] result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
+    };
     class Signature
     {
-        private readonly Byte[] PrivateKey1 = new Byte[8192]; // Also final signature
+        private readonly Byte[] PrivateKey1 = new Byte[8192]; // Also final signature//maybe
         private readonly Byte[] PrivateKey2 = new Byte[8192];
         private readonly Byte[] PublicKey1 = new Byte[8192];
         private readonly Byte[] PublicKey2 = new Byte[8192];
@@ -22,9 +31,30 @@ namespace BusPro
             randomizer.NextBytes(PrivateKey1);
             randomizer.NextBytes(PrivateKey2);
         }
-
-        public Boolean CreatePublicKey()//hashing private keys
+        public Boolean CreatePublicKey()//hashing private keys//easy to parallel
         {
+            using (SHA256 mySHA = SHA256.Create())
+            {
+                Byte[] temp;
+                for(int i=0; i<=255; i++)
+                {
+                    temp = Support.SubArray<Byte>(PrivateKey1, 32 * i, 32);//substract 256bit number(32*8)
+                    temp = mySHA.ComputeHash(temp);//hashing
+                    for (int j = 0; j < 32; j++)//putting into public key variable
+                    {
+                        PublicKey1[32 * i + j] = temp[j];
+                    }
+                }
+                for (int i = 0; i <= 255; i++)
+                {
+                    temp = Support.SubArray<Byte>(PrivateKey2, 32 * i, 32);
+                    temp = mySHA.ComputeHash(temp);
+                    for (int j = 0; j < 32; j++)
+                    {
+                        PublicKey2[32 * i + j] = temp[j];
+                    }
+                }
+            }
             return true;
         }
         public Boolean CreateHash(String filePath)// hashing file
