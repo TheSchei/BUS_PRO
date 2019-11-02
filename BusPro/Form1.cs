@@ -16,5 +16,21 @@ namespace BusPro
         {
             InitializeComponent();
         }
+
+        private void BrowseFile_Click(object sender, EventArgs e)
+        {
+            //readonly = true
+            OpenFileDialog choofdlog = new OpenFileDialog();
+            choofdlog.Filter = "All Files (*.*)|*.*";
+            choofdlog.FilterIndex = 1;
+
+            choofdlog.Multiselect = false;
+            choofdlog.ShowDialog();
+            if (choofdlog.FileName.Length != 0)
+            {
+                FileNameBox.Text = choofdlog.FileName;
+                //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
+            }
+        }
     }
 }
