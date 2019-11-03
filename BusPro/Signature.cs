@@ -87,22 +87,24 @@ namespace BusPro
         private void TransferBytes(int x, int y)
         {
             byte[] temp;
-            temp = Support.SubArray(PrivateKey2, (32 * x + y) * 32, 32);
+            //temp = Support.SubArray(PrivateKey2, (32 * x + y) * 32, 32);
+            temp = Support.SubArray(PrivateKey2, (8 * x + y) * 32, 32);
             for (int j = 0; j < 32; j++)
                 PublicKey1[32 * x + j] = temp[j];
         }
 
         private byte[] CreateSignature()
         {
-            for(int i = 0; i<256; i++)
+            //for(int i = 0; i<256; i++)// to 32
+            for (int i = 0; i < 32; i++)// to 32
                 CheckByte(i);
             PrivateKey2 = new Byte[8192];//deleting privatekey
             return PrivateKey1;//returning overwritten by signature privatekey
         }
         public void CreateFiles(string filename)
         {
-            File.WriteAllBytes(Path.ChangeExtension(filename, ".sign"), this.CreateSignature());
-            File.WriteAllBytes(Path.ChangeExtension(filename, ".key"), PublicKey1.Concat(PublicKey2).ToArray());
+            File.WriteAllBytes(filename + ".sign", this.CreateSignature());//creating signature file //256*32 bytes
+            File.WriteAllBytes(filename + ".key", PublicKey1.Concat(PublicKey2).ToArray());//creating key file (concated publickey1 ++ publickey2)//2*256*32 bytes
         }
     }
 }

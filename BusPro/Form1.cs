@@ -33,5 +33,13 @@ namespace BusPro
                 //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
             }
         }
+
+        /*private void button1_Click(object sender, EventArgs e)
+        {
+            Signature test = new Signature();
+            test.CreatePublicKey();
+            test.CreateHash(FileNameBox.Text);
+            test.CreateFiles(FileNameBox.Text);
+        }*/
     }
 }
