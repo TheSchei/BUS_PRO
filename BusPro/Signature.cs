@@ -19,7 +19,7 @@ namespace BusPro
     };
     class Signature
     {
-        private readonly byte[] PrivateKey1 = new byte[8192]; // Also final signature
+        private byte[] PrivateKey1 = new byte[8192]; // Also final signature
         private byte[] PrivateKey2 = new byte[8192];
         private readonly byte[] PublicKey1 = new byte[8192];
         private readonly byte[] PublicKey2 = new byte[8192];
@@ -92,12 +92,17 @@ namespace BusPro
                 PublicKey1[32 * x + j] = temp[j];
         }
 
-        public byte[] CreateSignature()
+        private byte[] CreateSignature()
         {
             for(int i = 0; i<256; i++)
                 CheckByte(i);
             PrivateKey2 = new Byte[8192];//deleting privatekey
             return PrivateKey1;//returning overwritten by signature privatekey
+        }
+        public void CreateFiles(string filename)
+        {
+            File.WriteAllBytes(Path.ChangeExtension(filename, ".sign"), this.CreateSignature());
+            File.WriteAllBytes(Path.ChangeExtension(filename, ".key"), PublicKey1.Concat(PublicKey2).ToArray());
         }
     }
 }
