@@ -90,7 +90,8 @@ namespace BusPro
             //temp = Support.SubArray(PrivateKey2, (32 * x + y) * 32, 32);
             temp = Support.SubArray(PrivateKey2, (8 * x + y) * 32, 32);
             for (int j = 0; j < 32; j++)
-                PublicKey1[32 * x + j] = temp[j];
+                //PrivateKey1[32 * x + j] = temp[j];
+                PrivateKey1[(8 * x + y) * 32 + j] = temp[j];
         }
 
         private byte[] CreateSignature()
