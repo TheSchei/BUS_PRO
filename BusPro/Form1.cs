@@ -34,6 +34,53 @@ namespace BusPro
             }
         }
 
+        private void BrowseSignature_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog choofdlog = new OpenFileDialog
+            {
+                Filter = "All Files (*.*)|*.*",
+                FilterIndex = 1,
+                Multiselect = false
+            };
+            choofdlog.ShowDialog();
+            if (choofdlog.FileName.Length != 0)
+            {
+                SignaturePathBox.Text = choofdlog.FileName;
+                //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
+            }
+        }
+
+        private void BrowseKey_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog choofdlog = new OpenFileDialog
+            {
+                Filter = "All Files (*.*)|*.*",
+                FilterIndex = 1,
+                Multiselect = false
+            };
+            choofdlog.ShowDialog();
+            if (choofdlog.FileName.Length != 0)
+            {
+                KeyFilePath.Text = choofdlog.FileName;
+                //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Signature test = new Signature();
+            test.CreatePublicKey();
+            test.CreateHash(FileNameBox.Text);
+            test.CreateFiles(FileNameBox.Text);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Verify test = new Verify(SignaturePathBox.Text, KeyFilePath.Text);
+            if (test.VerifySignature(FileNameBox.Text)) label1.Text = "OK";
+            else label1.Text = "Not Ok";
+        }
+
         /*private void button1_Click(object sender, EventArgs e)
         {
             Signature test = new Signature();

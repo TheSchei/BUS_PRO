@@ -71,6 +71,14 @@ namespace BusPro
             }
             return true;
         }
+        private byte[] CreateSignature()
+        {
+            //for(int i = 0; i<256; i++)// to 32
+            for (int i = 0; i < 32; i++)// to 32
+                CheckByte(i);
+            PrivateKey2 = new Byte[8192];//deleting privatekey
+            return PrivateKey1;//returning overwritten by signature privatekey
+        }
         private void CheckByte(int x) // creating signature based on hash (need to be used for each hash byte)
         {
             //if ((Hash[x] & 0b_1000_0000) == 0) PrivateKey1[x + 0] = PrivateKey2[x + 0];
@@ -83,7 +91,6 @@ namespace BusPro
             if ((Hash[x] & 0b_0000_0010) != 0) TransferBytes(x, 6);
             if ((Hash[x] & 0b_0000_0001) != 0) TransferBytes(x, 7);
         }
-
         private void TransferBytes(int x, int y)
         {
             byte[] temp;
@@ -94,14 +101,6 @@ namespace BusPro
                 PrivateKey1[(8 * x + y) * 32 + j] = temp[j];
         }
 
-        private byte[] CreateSignature()
-        {
-            //for(int i = 0; i<256; i++)// to 32
-            for (int i = 0; i < 32; i++)// to 32
-                CheckByte(i);
-            PrivateKey2 = new Byte[8192];//deleting privatekey
-            return PrivateKey1;//returning overwritten by signature privatekey
-        }
         public void CreateFiles(string filename)
         {
             File.WriteAllBytes(filename + ".sign", this.CreateSignature());//creating signature file //256*32 bytes
