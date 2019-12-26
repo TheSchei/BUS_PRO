@@ -109,11 +109,12 @@ namespace BusPro
                     label1.Text = "Not Ok";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogTextBox.AppendText("Signature verification failed." + Environment.NewLine);
                 LogTextBox.AppendText(ex.Message + Environment.NewLine);
             }
+            finally { LogTextBox.AppendText(Environment.NewLine); }
         }
         private void check_availability()
         {
