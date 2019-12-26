@@ -101,28 +101,29 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(46, 90);
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(645, 250);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(252, 148);
+            this.button1.Size = new System.Drawing.Size(143, 48);
             this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
+            this.button1.Text = "Sign";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(441, 95);
+            this.button2.Location = new System.Drawing.Point(645, 306);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(258, 142);
+            this.button2.Size = new System.Drawing.Size(142, 48);
             this.button2.TabIndex = 7;
-            this.button2.Text = "button2";
+            this.button2.Text = "Verify";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(351, 281);
+            this.label1.Location = new System.Drawing.Point(488, 295);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 8;
