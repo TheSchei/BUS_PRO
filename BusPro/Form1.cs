@@ -73,16 +73,47 @@ namespace BusPro
         private void button1_Click(object sender, EventArgs e)
         {
             Signature test = new Signature();
+            LogTextBox.AppendText("Generated private key" + Environment.NewLine);
             test.CreatePublicKey();
-            test.CreateHash(FileNameBox.Text);
-            test.CreateFiles(FileNameBox.Text);
+            LogTextBox.AppendText("Generated public key" + Environment.NewLine);
+            if (test.CreateHash(FileNameBox.Text))
+            {
+                LogTextBox.AppendText("Calculated hash" + Environment.NewLine);
+                test.CreateFiles(FileNameBox.Text);
+                LogTextBox.AppendText("Created Signature, and generated files" + Environment.NewLine);
+                LogTextBox.AppendText("Signing Successsed" + Environment.NewLine);
+            }
+            else
+            {
+                LogTextBox.AppendText("Failed to calculate hash" + Environment.NewLine);
+                LogTextBox.AppendText("Signing failed" + Environment.NewLine);
+            }
+            LogTextBox.AppendText(Environment.NewLine);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Verify test = new Verify(SignaturePathBox.Text, KeyFilePath.Text);
-            if (test.VerifySignature(FileNameBox.Text)) label1.Text = "OK";
-            else label1.Text = "Not Ok";
+            try
+            {
+                Verify test = new Verify(SignaturePathBox.Text, KeyFilePath.Text);
+                LogTextBox.AppendText("Loaded signature and key." + Environment.NewLine);
+                LogTextBox.AppendText("Veryfing file..." + Environment.NewLine);
+                if (test.VerifySignature(FileNameBox.Text))
+                {
+                    LogTextBox.AppendText("Signature verified successfully" + Environment.NewLine);
+                    label1.Text = "OK";
+                }
+                else
+                {
+                    LogTextBox.AppendText("Signature verified unsuccessfully" + Environment.NewLine);
+                    label1.Text = "Not Ok";
+                }
+            }
+            catch(Exception ex)
+            {
+                LogTextBox.AppendText("Signature verification failed." + Environment.NewLine);
+                LogTextBox.AppendText(ex.Message + Environment.NewLine);
+            }
         }
         private void check_availability()
         {
