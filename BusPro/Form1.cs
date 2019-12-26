@@ -38,7 +38,7 @@ namespace BusPro
         {
             OpenFileDialog choofdlog = new OpenFileDialog
             {
-                Filter = "All Files (*.*)|*.*",
+                Filter = "Signature Files (*.sign)|*.sign",
                 FilterIndex = 1,
                 Multiselect = false
             };
@@ -54,7 +54,7 @@ namespace BusPro
         {
             OpenFileDialog choofdlog = new OpenFileDialog
             {
-                Filter = "All Files (*.*)|*.*",
+                Filter = "Key Files (*.key)|*.key",
                 FilterIndex = 1,
                 Multiselect = false
             };
