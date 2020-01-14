@@ -20,7 +20,6 @@ namespace BusPro
 
         private void BrowseFile_Click(object sender, EventArgs e)
         {
-            //readonly = true
             OpenFileDialog choofdlog = new OpenFileDialog
             {
                 Filter = "All Files (*.*)|*.*",
@@ -31,7 +30,6 @@ namespace BusPro
             if (choofdlog.FileName.Length != 0)
             {
                 FileNameBox.Text = choofdlog.FileName;
-                //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
             }
             check_availability();
         }
@@ -48,7 +46,6 @@ namespace BusPro
             if (choofdlog.FileName.Length != 0)
             {
                 SignaturePathBox.Text = choofdlog.FileName;
-                //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
             }
             check_availability();
         }
@@ -65,7 +62,6 @@ namespace BusPro
             if (choofdlog.FileName.Length != 0)
             {
                 KeyFilePath.Text = choofdlog.FileName;
-                //if (DirectoryPath.Text == "") DirectoryPath.Text = new FileInfo(choofdlog.FileName).DirectoryName;
             }
             check_availability();
         }
@@ -99,15 +95,9 @@ namespace BusPro
                 LogTextBox.AppendText("Loaded signature and key." + Environment.NewLine);
                 LogTextBox.AppendText("Veryfing file..." + Environment.NewLine);
                 if (test.VerifySignature(FileNameBox.Text))
-                {
                     LogTextBox.AppendText("Signature verified successfully" + Environment.NewLine);
-                    label1.Text = "OK";
-                }
                 else
-                {
                     LogTextBox.AppendText("Signature verified unsuccessfully" + Environment.NewLine);
-                    label1.Text = "Not Ok";
-                }
             }
             catch (Exception ex)
             {
@@ -127,12 +117,5 @@ namespace BusPro
         private bool SignTest()  { return FileNameBox.Text != ""; }
         private bool VerifyTest() { return SignTest() && KeyFilePath.Text != "" && SignaturePathBox.Text != ""; }
 
-        /*private void button1_Click(object sender, EventArgs e)
-        {
-            Signature test = new Signature();
-            test.CreatePublicKey();
-            test.CreateHash(FileNameBox.Text);
-            test.CreateFiles(FileNameBox.Text);
-        }*/
     }
 }
